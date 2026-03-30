@@ -1,21 +1,14 @@
 "use client";
 
-import { Search, PanelLeft, Plus, FolderPlus, Command } from "lucide-react";
+import { Search, Plus, FolderPlus, Command } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function TopBar() {
   return (
     <header className="sticky top-0 z-50 flex h-14 items-center gap-3 border-b border-border bg-background px-4">
       {/* Sidebar toggle */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-muted-foreground hover:text-foreground"
-        aria-label="Toggle sidebar"
-        id="sidebar-toggle"
-      >
-        <PanelLeft className="size-5" />
-      </Button>
+      <SidebarTrigger className="-ml-1" />
 
       {/* Search bar */}
       <div className="relative flex-1 max-w-xl">
