@@ -1,15 +1,19 @@
-import { collections, items } from "@/src/lib/mock-data";
+import { items } from "@/src/lib/mock-data";
+import { getDashboardCollections } from "@/src/lib/db/collections";
 import { CollectionCard } from "@/components/dashboard/collection-card";
 import { ItemCard } from "@/components/dashboard/item-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Folder, Star, FileText, Pin } from "lucide-react";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  // Fetch from our Neon database
+  const dbCollections = await getDashboardCollections('demo@devstash.io');
+
   // Compute Stats
-  const totalItems = items.length;
-  const totalCollections = collections.length;
+  const totalItems = items.length; // Mock items untouched for now
+  const totalCollections = dbCollections.length;
   const favItems = items.filter(i => i.isFavorite).length;
-  const favCollections = collections.filter(c => c.isFavorite).length;
+  const favCollections = dbCollections.filter(c => c.isFavorite).length;
 
   const pinnedItems = items.filter(i => i.isPinned);
   const recentItems = [...items].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 10);
@@ -69,7 +73,7 @@ export default function DashboardPage() {
           <button className="text-sm text-muted-foreground hover:text-foreground">View all</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {collections.map(collection => (
+          {dbCollections.map(collection => (
             <CollectionCard key={collection.id} collection={collection} />
           ))}
         </div>

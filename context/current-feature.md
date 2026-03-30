@@ -10,7 +10,7 @@
 
 ## Current Feature
 
-Seed Data Implementation
+Dashboard Collections DB Integration
 
 ## Status
 
@@ -18,19 +18,17 @@ In Progress
 
 ## Goals
 
-- [x] Create a feature branch `feature/seed-script`
-- [x] Implement `prisma/seed.ts` with required mock data
-- [x] Create Demo User
-- [x] Implement System Item Types
-- [x] Create Collections and Items
-- [x] Verify functionality running `npm run db:seed`
+- [x] Create a feature branch `feature/dashboard-collections`
+- [x] Create `src/lib/db/collections.ts`
+- [x] Update `app/dashboard/page.tsx` to fetch collections from DB
+- [x] Update `CollectionCard` component to handle dynamic border colors and icons
+- [x] Verify functionality
 
 ## Notes
 
-- See `@context/features/seed-spec.md` for full specification.
-- Utilizing bcryptjs for user password hashing.
+- See `@context/features/dashboard-collections-spec.md` for full specification.
+- Working off the `demo@devstash.io` user for fetching demo data.
 
 ## History
 
-- 2026-03-30: Completed Database Setup.
-- 2026-03-30: Started Seed Data Implementation.
+- 2026-03-30: Started Dashboard Collections Implementation.
