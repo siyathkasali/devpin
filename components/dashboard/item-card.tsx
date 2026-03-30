@@ -1,6 +1,6 @@
-import { Item, itemTypes } from "@/src/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
 import { Star, Pin, Code, Sparkles, Terminal, StickyNote, File, Image as ImageIcon, Link as LinkIcon } from "lucide-react";
+import { DashboardItem } from "@/src/lib/db/items";
 
 const IconMap: Record<string, React.ElementType> = {
   Code,
@@ -12,9 +12,9 @@ const IconMap: Record<string, React.ElementType> = {
   Link: LinkIcon,
 };
 
-export function ItemCard({ item }: { item: Item }) {
-  const type = itemTypes.find((t) => t.id === item.typeId);
-  const IconComponent = type ? IconMap[type.icon] : null;
+export function ItemCard({ item }: { item: DashboardItem }) {
+  // Use DB relation directly instead of mock itemTypes
+  const IconComponent = item.type.icon ? IconMap[item.type.icon] : null;
 
   const date = new Date(item.createdAt);
   const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
@@ -24,7 +24,7 @@ export function ItemCard({ item }: { item: Item }) {
       {/* Icon Area */}
       <div className="shrink-0 mt-1">
         <div className="rounded bg-background p-2 border border-border">
-          {IconComponent && <IconComponent className="h-4 w-4" style={{ color: type?.color }} />}
+          {IconComponent && <IconComponent className="h-4 w-4" style={{ color: item.type.color || "currentColor" }} />}
         </div>
       </div>
 
@@ -39,9 +39,9 @@ export function ItemCard({ item }: { item: Item }) {
         
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mt-1">
-          {item.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-muted/50 rounded-sm">
-              {tag}
+          {item.tags.map((itemTag) => (
+            <Badge key={itemTag.tag.id} variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-muted/50 rounded-sm">
+              {itemTag.tag.name}
             </Badge>
           ))}
         </div>

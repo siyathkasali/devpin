@@ -1,29 +1,40 @@
-import { items } from "@/src/lib/mock-data";
 import { getDashboardCollections } from "@/src/lib/db/collections";
+import {
+  getDashboardItemStats,
+  getPinnedItems,
+  getRecentItems,
+} from "@/src/lib/db/items";
 import { CollectionCard } from "@/components/dashboard/collection-card";
 import { ItemCard } from "@/components/dashboard/item-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Folder, Star, FileText, Pin } from "lucide-react";
 
 export default async function DashboardPage() {
+  const userEmail = "demo@devstash.io";
   // Fetch from our Neon database
-  const dbCollections = await getDashboardCollections('demo@devstash.io');
+  const [dbCollections, itemStats, pinnedItems, recentItems] =
+    await Promise.all([
+      getDashboardCollections(userEmail),
+      getDashboardItemStats(userEmail),
+      getPinnedItems(userEmail),
+      getRecentItems(userEmail, 10),
+    ]);
 
   // Compute Stats
-  const totalItems = items.length; // Mock items untouched for now
+  const totalItems = itemStats.totalItems;
   const totalCollections = dbCollections.length;
-  const favItems = items.filter(i => i.isFavorite).length;
-  const favCollections = dbCollections.filter(c => c.isFavorite).length;
-
-  const pinnedItems = items.filter(i => i.isPinned);
-  const recentItems = [...items].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 10);
+  const favItems = itemStats.favoriteItems;
+  console.log({ favItems, dbCollections, itemStats });
+  const favCollections = dbCollections.filter((c) => c.isFavorite).length;
 
   return (
     <div className="flex flex-col gap-8 max-w-6xl mx-auto h-full pb-8">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground mt-2">Your developer knowledge hub</p>
+        <p className="text-muted-foreground mt-2">
+          Your developer knowledge hub
+        </p>
       </div>
 
       {/* Stats Cards */}
@@ -48,7 +59,9 @@ export default async function DashboardPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Favorite Items</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Favorite Items
+            </CardTitle>
             <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
           </CardHeader>
           <CardContent>
@@ -57,7 +70,9 @@ export default async function DashboardPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Favorite Collections</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Favorite Collections
+            </CardTitle>
             <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
           </CardHeader>
           <CardContent>
@@ -70,33 +85,37 @@ export default async function DashboardPage() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold tracking-tight">Collections</h2>
-          <button className="text-sm text-muted-foreground hover:text-foreground">View all</button>
+          <button className="text-sm text-muted-foreground hover:text-foreground">
+            View all
+          </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {dbCollections.map(collection => (
+          {dbCollections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />
           ))}
         </div>
       </div>
 
       {/* Pinned Items Section */}
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-2 text-xl font-semibold tracking-tight">
-          <Pin className="w-4 h-4 text-muted-foreground fill-muted-foreground transform rotate-45" />
-          <h2>Pinned</h2>
+      {pinnedItems.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2 text-xl font-semibold tracking-tight">
+            <Pin className="w-4 h-4 text-muted-foreground fill-muted-foreground transform rotate-45" />
+            <h2>Pinned</h2>
+          </div>
+          <div className="flex flex-col space-y-2">
+            {pinnedItems.map((item) => (
+              <ItemCard key={item.id} item={item} />
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col space-y-2">
-          {pinnedItems.map(item => (
-            <ItemCard key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* Recent Items Section */}
       <div className="flex flex-col gap-4 pt-4">
         <h2 className="text-xl font-semibold tracking-tight">Recent Items</h2>
         <div className="flex flex-col space-y-2">
-          {recentItems.map(item => (
+          {recentItems.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}
         </div>
