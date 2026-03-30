@@ -10,25 +10,27 @@
 
 ## Current Feature
 
-Database Setup with Prisma and Neon
+Seed Data Implementation
 
 ## Status
 
-Completed
+In Progress
 
 ## Goals
 
-- [x] Set up Prisma ORM with Neon PostgreSQL database
-- [x] Create initial schema based on data models in project-overview.md
-- [x] Include NextAuth models (Account, Session, VerificationToken)
-- [x] Add appropriate indexes and cascade deletes
-- [x] Ensure Prisma 7 compatibility
+- [x] Create a feature branch `feature/seed-script`
+- [x] Implement `prisma/seed.ts` with required mock data
+- [x] Create Demo User
+- [x] Implement System Item Types
+- [x] Create Collections and Items
+- [x] Verify functionality running `npm run db:seed`
 
 ## Notes
 
-- See `@context/features/database-spec.md` for full specification.
-- References: `@context/project-overview.md`, `@context/coding-standards.md`
+- See `@context/features/seed-spec.md` for full specification.
+- Utilizing bcryptjs for user password hashing.
 
 ## History
 
-- 2026-03-30: Started Database Setup
+- 2026-03-30: Completed Database Setup.
+- 2026-03-30: Started Seed Data Implementation.
