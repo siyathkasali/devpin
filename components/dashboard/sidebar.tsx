@@ -13,9 +13,10 @@ import {
   SidebarMenuBadge,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { currentUser } from "@/src/lib/mock-data";
+import { Badge } from "@/components/ui/badge";
 import { SidebarItemType } from "@/src/lib/db/item-types";
 import { DashboardCollection } from "@/src/lib/db/collections";
+import { SidebarUser } from "@/src/lib/db/user";
 
 const iconMap: Record<string, React.ElementType> = {
   Code, Sparkles, Terminal, StickyNote, File, Image: ImageIcon, Link: LinkIcon,
@@ -24,9 +25,10 @@ const iconMap: Record<string, React.ElementType> = {
 export interface AppSidebarProps {
   itemTypes: SidebarItemType[];
   collections: DashboardCollection[];
+  user: SidebarUser;
 }
 
-export function AppSidebar({ itemTypes, collections }: AppSidebarProps) {
+export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
   const favorites = collections.filter((c) => c.isFavorite);
   const recentCollections = collections.slice(0, 5); // display top 5 recent collections
 
@@ -51,12 +53,19 @@ export function AppSidebar({ itemTypes, collections }: AppSidebarProps) {
           <SidebarMenu>
             {itemTypes.map((type) => {
               const Icon = (type.icon && iconMap[type.icon]) ? iconMap[type.icon] : File;
+              const isProType = type.name.toLowerCase() === "file" || type.name.toLowerCase() === "image";
               return (
                 <SidebarMenuItem key={type.id}>
                   <SidebarMenuButton asChild>
                     <a href={`/items/${type.name.toLowerCase()}`}>
                       <Icon className="text-muted-foreground mr-2 size-4" style={{ color: type.color || undefined }} />
                       <span>{type.name}</span>
+                      {isProType && (
+                        <Badge variant="secondary" className="text-[9px] px-1 py-0 font-semibold uppercase ml-1.5">
+                          <Star className="size-2.5 mr-0.5" />
+                          PRO
+                        </Badge>
+                      )}
                     </a>
                   </SidebarMenuButton>
                   <SidebarMenuBadge className="text-muted-foreground group-hover/menu-button:text-sidebar-foreground">
@@ -129,11 +138,19 @@ export function AppSidebar({ itemTypes, collections }: AppSidebarProps) {
         {/* User profile — bottom of sidebar */}
         <div className="flex items-center gap-3 py-1">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
-            {currentUser.name.split(" ").map(n => n[0]).join("")}
+            {user.name.split(" ").map(n => n[0]).join("")}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium text-sidebar-foreground">{currentUser.name}</p>
-            <p className="truncate text-xs text-sidebar-foreground/70">{currentUser.email}</p>
+            <p className="truncate text-sm font-medium text-sidebar-foreground flex items-center gap-1.5">
+              {user.name}
+              {user.isPro && (
+                <Badge variant="secondary" className="text-[10px] px-1 py-0.1 font-semibold uppercase">
+                  <Star className="size-2.5 mr-0.5" />
+                  PRO
+                </Badge>
+              )}
+            </p>
+            <p className="truncate text-xs text-sidebar-foreground/70">{user.email}</p>
           </div>
         </div>
       </SidebarFooter>
