@@ -11,8 +11,8 @@ import { Folder, Star, FileText, Pin } from "lucide-react";
 
 export default async function DashboardPage() {
   const userEmail = "demo@devstash.io";
-  // Fetch from our Neon database
-  const [dbCollections, itemStats, pinnedItems, recentItems] =
+
+  const [collectionsResult, itemStatsResult, pinnedResult, recentResult] =
     await Promise.all([
       getDashboardCollections(userEmail),
       getDashboardItemStats(userEmail),
@@ -20,7 +20,15 @@ export default async function DashboardPage() {
       getRecentItems(userEmail, 10),
     ]);
 
-  // Compute Stats
+  const dbCollections = collectionsResult.success
+    ? collectionsResult.data
+    : [];
+  const itemStats = itemStatsResult.success
+    ? itemStatsResult.data
+    : { totalItems: 0, favoriteItems: 0 };
+  const pinnedItems = pinnedResult.success ? pinnedResult.data : [];
+  const recentItems = recentResult.success ? recentResult.data : [];
+
   const totalItems = itemStats.totalItems;
   const totalCollections = dbCollections.length;
   const favItems = itemStats.favoriteItems;

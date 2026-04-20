@@ -1,7 +1,6 @@
 import { prisma } from "./index";
 import { Prisma } from "@/src/generated/prisma";
 
-// Type definition for an item with its required relations
 export type DashboardItem = Prisma.ItemGetPayload<{
   include: {
     type: true;
@@ -13,83 +12,120 @@ export type DashboardItem = Prisma.ItemGetPayload<{
   };
 }>;
 
-export async function getDashboardItemStats(userEmail: string) {
-  const user = await prisma.user.findUnique({
-    where: { email: userEmail },
-    select: { id: true },
-  });
+export type GetDashboardItemStatsResult =
+  | { success: true; data: { totalItems: number; favoriteItems: number } }
+  | { success: false; error: string };
 
-  if (!user) {
-    return { totalItems: 0, favoriteItems: 0 };
+export async function getDashboardItemStats(
+  userEmail: string,
+): Promise<GetDashboardItemStatsResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return { success: true, data: { totalItems: 0, favoriteItems: 0 } };
+    }
+
+    const [totalItems, favoriteItems] = await Promise.all([
+      prisma.item.count({
+        where: { userId: user.id },
+      }),
+      prisma.item.count({
+        where: { userId: user.id, isFavorite: true },
+      }),
+    ]);
+
+    return { success: true, data: { totalItems, favoriteItems } };
+  } catch (error) {
+    console.error("Error fetching dashboard item stats:", error);
+    return { success: false, error: "Failed to fetch item stats" };
   }
-
-  const [totalItems, favoriteItems] = await Promise.all([
-    prisma.item.count({
-      where: { userId: user.id },
-    }),
-    prisma.item.count({
-      where: { userId: user.id, isFavorite: true },
-    }),
-  ]);
-
-  return { totalItems, favoriteItems };
 }
 
-export async function getPinnedItems(userEmail: string): Promise<DashboardItem[]> {
-  const user = await prisma.user.findUnique({
-    where: { email: userEmail },
-    select: { id: true },
-  });
+export type GetPinnedItemsResult =
+  | { success: true; data: DashboardItem[] }
+  | { success: false; error: string };
 
-  if (!user) {
-    return [];
-  }
+export async function getPinnedItems(
+  userEmail: string,
+): Promise<GetPinnedItemsResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
 
-  return prisma.item.findMany({
-    where: {
-      userId: user.id,
-      isPinned: true,
-    },
-    include: {
-      type: true,
-      tags: {
-        include: {
-          tag: true,
+    if (!user) {
+      return { success: true, data: [] };
+    }
+
+    const items = await prisma.item.findMany({
+      where: {
+        userId: user.id,
+        isPinned: true,
+      },
+      include: {
+        type: true,
+        tags: {
+          include: {
+            tag: true,
+          },
         },
       },
-    },
-    orderBy: {
-      // Pin order might not exist, but let's order by creation date as fallback
-      createdAt: "desc",
-    },
-  });
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return { success: true, data: items };
+  } catch (error) {
+    console.error("Error fetching pinned items:", error);
+    return { success: false, error: "Failed to fetch pinned items" };
+  }
 }
 
-export async function getRecentItems(userEmail: string, limit: number = 10): Promise<DashboardItem[]> {
-  const user = await prisma.user.findUnique({
-    where: { email: userEmail },
-    select: { id: true },
-  });
+export type GetRecentItemsResult =
+  | { success: true; data: DashboardItem[] }
+  | { success: false; error: string };
 
-  if (!user) {
-    return [];
-  }
+export async function getRecentItems(
+  userEmail: string,
+  limit: number = 10,
+): Promise<GetRecentItemsResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
 
-  return prisma.item.findMany({
-    where: {
-      userId: user.id,
-    },
-    include: {
-      type: true,
-      tags: {
-        include: {
-          tag: true,
+    if (!user) {
+      return { success: true, data: [] };
+    }
+
+    const items = await prisma.item.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        type: true,
+        tags: {
+          include: {
+            tag: true,
+          },
         },
       },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: limit,
-  });
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: limit,
+    });
+
+    return { success: true, data: items };
+  } catch (error) {
+    console.error("Error fetching recent items:", error);
+    return { success: false, error: "Failed to fetch recent items" };
+  }
 }

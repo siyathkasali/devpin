@@ -14,8 +14,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
-import { SidebarItemType } from "@/src/lib/db/item-types";
-import { DashboardCollection } from "@/src/lib/db/collections";
+import { SidebarItemType, DashboardCollection } from "@/src/lib/db/collections";
 import { SidebarUser } from "@/src/lib/db/user";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -30,12 +29,11 @@ export interface AppSidebarProps {
 
 export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
   const favorites = collections.filter((c) => c.isFavorite);
-  const recentCollections = collections.slice(0, 5); // display top 5 recent collections
+  const recentCollections = collections.slice(0, 5);
 
   return (
     <Sidebar>
       <SidebarHeader className="h-14 flex items-center px-4 border-b border-sidebar-border">
-        {/* Logo — top of sidebar */}
         <div className="flex w-full items-center gap-2.5">
           <div className="flex size-7 items-center justify-center rounded-lg bg-linear-to-br from-emerald-400 to-cyan-400">
             <span className="text-sm font-bold text-white">S</span>
@@ -47,7 +45,6 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
       </SidebarHeader>
 
       <SidebarContent>
-        {/* Types Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel>Types</SidebarGroupLabel>
           <SidebarMenu>
@@ -77,7 +74,6 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
           </SidebarMenu>
         </SidebarGroup>
 
-        {/* Favorites */}
         <SidebarGroup>
           <SidebarGroupLabel>Favorites</SidebarGroupLabel>
           <SidebarMenu>
@@ -97,7 +93,6 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
           </SidebarMenu>
         </SidebarGroup>
 
-        {/* All Collections */}
         <SidebarGroup>
           <SidebarGroupLabel className="flex justify-between items-center">
             Recent Collections
@@ -120,8 +115,7 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
                 </SidebarMenuBadge>
               </SidebarMenuItem>
             ))}
-            
-            {/* View All Collections Link */}
+
             <SidebarMenuItem>
               <SidebarMenuButton asChild className="text-sidebar-foreground/70 hover:text-sidebar-foreground mt-2 font-medium">
                 <a href="/collections">
@@ -129,16 +123,15 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            
+
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border p-3">
-        {/* User profile — bottom of sidebar */}
         <div className="flex items-center gap-3 py-1">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
-            {user.name.split(" ").map(n => n[0]).join("")}
+            {user.name?.split(" ").map(n => n[0]).join("") || "?"}
           </div>
           <div className="flex-1 min-w-0">
             <p className="truncate text-sm font-medium text-sidebar-foreground flex items-center gap-1.5">
