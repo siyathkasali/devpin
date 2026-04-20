@@ -20,7 +20,7 @@ export async function getDashboardItemStats(userEmail: string) {
   });
 
   if (!user) {
-    throw new Error("User not found");
+    return { totalItems: 0, favoriteItems: 0 };
   }
 
   const [totalItems, favoriteItems] = await Promise.all([
@@ -42,7 +42,7 @@ export async function getPinnedItems(userEmail: string): Promise<DashboardItem[]
   });
 
   if (!user) {
-    throw new Error("User not found");
+    return [];
   }
 
   return prisma.item.findMany({
@@ -72,7 +72,7 @@ export async function getRecentItems(userEmail: string, limit: number = 10): Pro
   });
 
   if (!user) {
-    throw new Error("User not found");
+    return [];
   }
 
   return prisma.item.findMany({
