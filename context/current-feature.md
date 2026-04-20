@@ -7,32 +7,24 @@
 - **✅ Dashboard UI Phase 3**: Main area, recent collections, pinned items, recent items, and stats cards.
 - **✅ Dashboard Collections DB Integration**: Created db query for fetching collections with item type aggregation, updated dashboard page to fetch collections from database, updated collection card component to use dynamic styles.
 - **✅ Dashboard Items DB Integration**: Created db queries for items, fetched and parsed stats in main dashboard page, refactored item cards to use DB relations.
+- **✅ Stats & Sidebar DB Integration**: Added view all collections link, updated sidebar to fetch system item types and collections from DB, rendered favorite collections with star icons and recent collections with colored circles. Verified in browser.
+- **✅ Auth Phase 1 - NextAuth + GitHub Provider**: Set up NextAuth v5 with Prisma adapter, GitHub OAuth, route protection via proxy.
 
 ---
 
 ## Current Feature
 
-Stats & Sidebar DB Integration
+_Starting next feature..._
 
 ## Status
 
-In Progress
+_Planning_
 
 ## Goals
 
-- [ ] Create a feature branch `feature/stats-sidebar`
-- [ ] Add "View all collections" link under the collections in sidebar
-- [ ] Update sidebar to fetch system item types and collections from DB
-- [ ] Render favorite collections with a star icon
-- [ ] Render recent collections with a colored circle (dominant type)
-- [ ] Verify functionality
-
-## Notes
-
-- See `@context/features/stats-sidebar-spec.md` for full specification.
-- Working off the `demo@devstash.io` user for fetching demo data.
+- [ ] _To be determined_
 
 ## History
 
-- 2026-03-30: Started Stats & Sidebar DB Integration Implementation.
-- 2026-04-17: Continuing implementation - adding view all collections link, updating sidebar to fetch system item types and collections from DB, rendering favorite/recent collections with appropriate icons.
+- 2026-04-20: Completed Auth Phase 1 - NextAuth + GitHub Provider. Set up NextAuth v5 with Prisma adapter, GitHub OAuth, and route protection via proxy.
+- 2026-04-20: Starting Auth Phase 1 Implementation.
