@@ -42,27 +42,62 @@ async function main() {
   console.log(`User created/updated: ${user.email}`);
 
   // 2. Item Types
+  // First, collect all existing system types
+  const existingTypes = await prisma.itemType.findMany({
+    where: { isSystem: true },
+  });
   const typeMap = new Map<string, string>();
+
+  // Build a map of lowercase name -> first existing type (for dedup)
+  const lowerToType = new Map<string, typeof existingTypes[0]>();
+  for (const et of existingTypes) {
+    const key = et.name.toLowerCase();
+    if (!lowerToType.has(key)) {
+      lowerToType.set(key, et);
+    }
+  }
+
+  // Create missing types; for existing ones, update them to canonical name
   for (const t of systemItemTypes) {
-    const existingType = await prisma.itemType.findFirst({
-      where: { name: t.name, isSystem: true }
-    });
-    
-    let typeId: string;
-    if (existingType) {
+    const lowerName = t.name.toLowerCase();
+    const existing = lowerToType.get(lowerName);
+
+    if (existing) {
+      // Update in place so the ID stays stable
       const updated = await prisma.itemType.update({
-        where: { id: existingType.id },
-        data: t
+        where: { id: existing.id },
+        data: { name: t.name, icon: t.icon, color: t.color },
       });
-      typeId = updated.id;
+      typeMap.set(t.name, updated.id);
     } else {
-      const created = await prisma.itemType.create({
-        data: t
-      });
-      typeId = created.id;
+      const created = await prisma.itemType.create({ data: t });
+      typeMap.set(t.name, created.id);
       console.log(`Created System Item Type: ${t.name}`);
     }
-    typeMap.set(t.name, typeId);
+  }
+
+  // Migrate items from duplicate types to their canonical type, then delete duplicates
+  const afterTypes = await prisma.itemType.findMany({ where: { isSystem: true } });
+  const seenLower = new Set<string>();
+  for (const et of afterTypes) {
+    const key = et.name.toLowerCase();
+    if (seenLower.has(key)) {
+      // Find the canonical type with the same lowercase name
+      const canonical = afterTypes.find(
+        (t) => t.id !== et.id && t.name.toLowerCase() === key,
+      );
+      if (canonical) {
+        // Migrate items to canonical type
+        await prisma.item.updateMany({
+          where: { typeId: et.id },
+          data: { typeId: canonical.id },
+        });
+      }
+      await prisma.itemType.delete({ where: { id: et.id } });
+      console.log(`Deleted duplicate system type: ${et.name}`);
+    } else {
+      seenLower.add(key);
+    }
   }
 
   // Helper to get typeId
@@ -80,7 +115,7 @@ async function main() {
 
   // React Patterns
   const reactCol = await prisma.collection.create({
-    data: { name: 'React Patterns', description: 'Reusable React patterns and hooks', userId: user.id }
+    data: { name: 'React Patterns', description: 'Reusable React patterns and hooks', userId: user.id, isFavorite: true }
   });
   await prisma.item.createMany({
     data: [
@@ -130,7 +165,7 @@ async function main() {
 
   // Design Resources
   const designCol = await prisma.collection.create({
-    data: { name: 'Design Resources', description: 'UI/UX resources and references', userId: user.id }
+    data: { name: 'Design Resources', description: 'UI/UX resources and references', userId: user.id, isFavorite: true }
   });
   await prisma.item.createMany({
     data: [

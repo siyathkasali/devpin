@@ -13,26 +13,22 @@ import {
   SidebarMenuBadge,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { itemTypes, collections, currentUser, items } from "@/src/lib/mock-data";
+import { currentUser } from "@/src/lib/mock-data";
+import { SidebarItemType } from "@/src/lib/db/item-types";
+import { DashboardCollection } from "@/src/lib/db/collections";
 
 const iconMap: Record<string, React.ElementType> = {
   Code, Sparkles, Terminal, StickyNote, File, Image: ImageIcon, Link: LinkIcon,
 };
 
-export function AppSidebar() {
-  const favorites = collections.filter((c) => c.isFavorite);
+export interface AppSidebarProps {
+  itemTypes: SidebarItemType[];
+  collections: DashboardCollection[];
+}
 
-  // Fallback to static counts for types to match the screenshot better, 
-  // since mock-data items list only has 8 items.
-  const idealTypeCounts: Record<string, number> = {
-    "type-snippet": 24,
-    "type-prompt": 18,
-    "type-command": 15,
-    "type-note": 12,
-    "type-file": 5,
-    "type-image": 3,
-    "type-link": 8,
-  };
+export function AppSidebar({ itemTypes, collections }: AppSidebarProps) {
+  const favorites = collections.filter((c) => c.isFavorite);
+  const recentCollections = collections.slice(0, 5); // display top 5 recent collections
 
   return (
     <Sidebar>
@@ -54,17 +50,17 @@ export function AppSidebar() {
           <SidebarGroupLabel>Types</SidebarGroupLabel>
           <SidebarMenu>
             {itemTypes.map((type) => {
-              const Icon = iconMap[type.icon] || File;
+              const Icon = (type.icon && iconMap[type.icon]) ? iconMap[type.icon] : File;
               return (
                 <SidebarMenuItem key={type.id}>
                   <SidebarMenuButton asChild>
-                    <a href={`/items/${type.id.replace("type-", "")}`}>
-                      <Icon className="text-muted-foreground mr-2 size-4" style={{ color: type.color }} />
+                    <a href={`/items/${type.name.toLowerCase()}`}>
+                      <Icon className="text-muted-foreground mr-2 size-4" style={{ color: type.color || undefined }} />
                       <span>{type.name}</span>
                     </a>
                   </SidebarMenuButton>
                   <SidebarMenuBadge className="text-muted-foreground group-hover/menu-button:text-sidebar-foreground">
-                    {idealTypeCounts[type.id] || 0}
+                    {type.itemCount}
                   </SidebarMenuBadge>
                 </SidebarMenuItem>
               );
@@ -80,11 +76,11 @@ export function AppSidebar() {
               <SidebarMenuItem key={collection.id}>
                 <SidebarMenuButton asChild>
                   <a href={`/collections/${collection.id}`} className="flex justify-between items-center w-full">
-                    <div className="flex items-center gap-2">
-                       <Folder className="text-muted-foreground size-4" />
-                       <span>{collection.name}</span>
+                    <div className="flex items-center gap-2 overflow-hidden">
+                       <Folder className="text-muted-foreground size-4 shrink-0" />
+                       <span className="truncate">{collection.name}</span>
                     </div>
-                    <Star className="size-4 text-yellow-500 fill-current" />
+                    <Star className="size-4 shrink-0 text-yellow-500 fill-current" />
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -94,14 +90,20 @@ export function AppSidebar() {
 
         {/* All Collections */}
         <SidebarGroup>
-          <SidebarGroupLabel>All Collections</SidebarGroupLabel>
+          <SidebarGroupLabel className="flex justify-between items-center">
+            Recent Collections
+          </SidebarGroupLabel>
           <SidebarMenu>
-            {collections.map((collection) => (
+            {recentCollections.map((collection) => (
               <SidebarMenuItem key={collection.id}>
                 <SidebarMenuButton asChild>
-                  <a href={`/collections/${collection.id}`}>
-                    <Folder className="text-muted-foreground mr-2 size-4" />
-                    <span>{collection.name}</span>
+                  <a href={`/collections/${collection.id}`} className="flex items-center overflow-hidden">
+                    {collection.dominantTypeColor ? (
+                      <div className="size-2.5 rounded-full mr-2 shrink-0" style={{ backgroundColor: collection.dominantTypeColor }} />
+                    ) : (
+                      <Folder className="text-muted-foreground mr-2 size-4 shrink-0" />
+                    )}
+                    <span className="truncate">{collection.name}</span>
                   </a>
                 </SidebarMenuButton>
                 <SidebarMenuBadge className="text-muted-foreground group-hover/menu-button:text-sidebar-foreground">
@@ -109,6 +111,16 @@ export function AppSidebar() {
                 </SidebarMenuBadge>
               </SidebarMenuItem>
             ))}
+            
+            {/* View All Collections Link */}
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild className="text-sidebar-foreground/70 hover:text-sidebar-foreground mt-2 font-medium">
+                <a href="/collections">
+                  View all collections
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

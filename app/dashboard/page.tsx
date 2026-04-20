@@ -24,7 +24,6 @@ export default async function DashboardPage() {
   const totalItems = itemStats.totalItems;
   const totalCollections = dbCollections.length;
   const favItems = itemStats.favoriteItems;
-  console.log({ favItems, dbCollections, itemStats });
   const favCollections = dbCollections.filter((c) => c.isFavorite).length;
 
   return (
