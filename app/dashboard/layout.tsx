@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { AppSidebar } from "@/components/dashboard/sidebar";
 import { TopBar } from "@/components/dashboard/top-bar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -6,13 +7,20 @@ import {
   getDashboardCollections,
 } from "@/src/lib/db/collections";
 import { getSidebarUser } from "@/src/lib/db/user";
+import { auth } from "@/src/auth";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const userEmail = "demo@devstash.io";
+  const session = await auth();
+
+  if (!session?.user?.email) {
+    redirect("/sign-in");
+  }
+
+  const userEmail = session.user.email;
 
   const [itemTypesResult, collectionsResult, userResult] = await Promise.all([
     getSidebarItemTypes(userEmail),
@@ -25,8 +33,8 @@ export default async function DashboardLayout({
     ? collectionsResult.data
     : [];
   const user = userResult.success
-    ? userResult.data ?? { id: "", name: "Guest", email: "", isPro: false }
-    : { id: "", name: "Guest", email: "", isPro: false };
+    ? userResult.data ?? { id: "", name: "Guest", email: "", isPro: false, image: null }
+    : { id: "", name: "Guest", email: "", isPro: false, image: null };
 
   return (
     <SidebarProvider>

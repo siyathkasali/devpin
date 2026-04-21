@@ -4,6 +4,7 @@ export interface SidebarUser {
   id: string;
   name: string;
   email: string;
+  image: string | null;
   isPro: boolean;
 }
 
@@ -21,6 +22,7 @@ export async function getSidebarUser(
         id: true,
         name: true,
         email: true,
+        image: true,
         isPro: true,
       },
     });
@@ -35,6 +37,7 @@ export async function getSidebarUser(
         id: user.id,
         name: user.name ?? "User",
         email: user.email,
+        image: user.image,
         isPro: user.isPro,
       },
     };

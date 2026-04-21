@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { SidebarItemType, DashboardCollection } from "@/src/lib/db/collections";
 import { SidebarUser } from "@/src/lib/db/user";
+import { UserButton } from "@/components/dashboard/user-button";
 
 const iconMap: Record<string, React.ElementType> = {
   Code, Sparkles, Terminal, StickyNote, File, Image: ImageIcon, Link: LinkIcon,
@@ -129,23 +130,7 @@ export function AppSidebar({ itemTypes, collections, user }: AppSidebarProps) {
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border p-3">
-        <div className="flex items-center gap-3 py-1">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
-            {user.name?.split(" ").map(n => n[0]).join("") || "?"}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium text-sidebar-foreground flex items-center gap-1.5">
-              {user.name}
-              {user.isPro && (
-                <Badge variant="secondary" className="text-[10px] px-1 py-0.1 font-semibold uppercase">
-                  <Star className="size-2.5 mr-0.5" />
-                  PRO
-                </Badge>
-              )}
-            </p>
-            <p className="truncate text-xs text-sidebar-foreground/70">{user.email}</p>
-          </div>
-        </div>
+        <UserButton user={user} />
       </SidebarFooter>
     </Sidebar>
   );
