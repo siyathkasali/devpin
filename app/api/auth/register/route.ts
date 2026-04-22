@@ -3,9 +3,15 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { prisma } from "@/src/lib/db";
 import { sendVerificationEmail } from "@/src/lib/email";
+import { checkRegisterRateLimit } from "@/src/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
   try {
+    const rateLimitResponse = await checkRegisterRateLimit(request);
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     const body = await request.json();
     const { name, email, password, confirmPassword } = body;
 

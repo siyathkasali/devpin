@@ -1,6 +1,7 @@
 "use server";
 
 import { signIn } from "@/src/auth";
+import { checkLoginRateLimitFromHeaders } from "@/src/lib/rate-limit";
 
 interface SignInResult {
   error?: string;
@@ -19,6 +20,11 @@ export async function signInAction(
   }
 
   if (email && password) {
+    const rateLimit = await checkLoginRateLimitFromHeaders(email);
+    if (!rateLimit.success) {
+      return { error: rateLimit.error };
+    }
+
     try {
       const result = await signIn("credentials", {
         email,
