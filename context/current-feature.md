@@ -1,14 +1,29 @@
 # Current Feature
 
+Profile Page
+
 ## Status
 
-_Planning_
+Completed
 
 ## Goals
 
-- [ ] _To be determined_
+- [x] Create `/profile` page route
+- [x] Display user info (name, email, avatar, account date)
+- [x] Show usage stats (items, collections, breakdown by type)
+- [x] Add change password functionality (email users only)
+- [x] Add delete account with confirmation
+- [x] Protect route (require authentication)
+- [x] Verify functionality
+
+## Notes
+
+- See `@context/features/profile-spec.md` for full specification.
+- Avatar: GitHub image or initials fallback.
+- Change password only for email/password users (not OAuth).
+- Delete account needs confirmation dialog.
 
 ## History
 
-- 2026-04-22: Completed Forgot Password feature. Added /forgot-password and /reset-password pages with email reset via Resend.
-- 2026-04-22: Completed Email Verification with Resend. Added verification flow with /verify-email/pending and /verify-email/success pages.
+- 2026-04-22: Starting Profile Page feature.
+- 2026-04-22: Profile Page feature completed.
