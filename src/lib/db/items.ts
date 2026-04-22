@@ -129,3 +129,51 @@ export async function getRecentItems(
     return { success: false, error: "Failed to fetch recent items" };
   }
 }
+
+export type GetItemsByTypeResult =
+  | { success: true; data: DashboardItem[] }
+  | { success: false; error: string };
+
+export async function getItemsByType(
+  userEmail: string,
+  typeName: string,
+): Promise<GetItemsByTypeResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return { success: true, data: [] };
+    }
+
+    const items = await prisma.item.findMany({
+      where: {
+        userId: user.id,
+        type: {
+          name: {
+            equals: typeName,
+            mode: "insensitive",
+          },
+        },
+      },
+      include: {
+        type: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return { success: true, data: items };
+  } catch (error) {
+    console.error("Error fetching items by type:", error);
+    return { success: false, error: "Failed to fetch items by type" };
+  }
+}
