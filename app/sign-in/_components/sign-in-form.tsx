@@ -105,6 +105,12 @@ export function SignInForm() {
             Register
           </Link>
         </p>
+
+        <p className="text-center text-sm text-muted-foreground">
+          <Link href="/forgot-password" className="hover:underline">
+            Forgot password?
+          </Link>
+        </p>
       </div>
     </div>
   );

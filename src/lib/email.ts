@@ -66,3 +66,61 @@ export async function sendVerificationEmail({
     `,
   });
 }
+
+export async function sendPasswordResetEmail({
+  email,
+  name,
+  token,
+}: {
+  email: string;
+  name: string;
+  token: string;
+}) {
+  console.log("sendPasswordResetEmail called with:", { email, name, token });
+  console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
+
+  if (!resend) {
+    console.log("RESEND_API_KEY not set, skipping email send");
+    console.log(`Password Reset URL: ${baseUrl}/reset-password?token=${token}`);
+    return;
+  }
+
+  const resetUrl = `${baseUrl}/reset-password?token=${token}`;
+  console.log("Sending password reset email with Resend...");
+
+  // In development, send to Resend's test inbox
+  const recipientEmail = isDev ? devInbox : email;
+
+  await resend.emails.send({
+    from: "DevStash <onboarding@resend.dev>",
+    to: recipientEmail,
+    subject: "Reset your DevStash password",
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">DevStash</h1>
+          </div>
+          <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+            <h2 style="margin: 0 0 20px; font-size: 20px; color: #111;">Hi ${name || "there"},</h2>
+            <p style="margin: 0 0 20px; color: #666;">You requested a password reset for your DevStash account. Click the button below to set a new password.</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${resetUrl}" style="display: inline-block; background: #ef4444; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px;">Reset Password</a>
+            </div>
+            <p style="margin: 0 0 20px; color: #666; font-size: 14px;">Or copy and paste this link into your browser:</p>
+            <p style="margin: 0 0 20px; word-break: break-all; font-size: 12px; color: #888;"><a href="${resetUrl}" style="color: #ef4444;">${resetUrl}</a></p>
+            <p style="margin: 0 0 20px; color: #dc2626; font-size: 14px; font-weight: 500;">⚠️ This link will expire in 1 hour for security reasons.</p>
+            <p style="margin: 0 0 20px; color: #666; font-size: 14px;">If you didn&apos;t request this password reset, you can safely ignore this email.</p>
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+            <p style="margin: 0; color: #999; font-size: 12px; text-align: center;">DevStash — Store Smarter. Build Faster.</p>
+          </div>
+        </body>
+      </html>
+    `,
+  });
+}
