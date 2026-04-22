@@ -49,7 +49,7 @@ export function RegisterForm() {
         return;
       }
 
-      router.push("/sign-in?registered=true");
+      router.push(`/verify-email/pending?email=${encodeURIComponent(email)}`);
     } catch {
       setError("Something went wrong");
       setIsLoading(false);

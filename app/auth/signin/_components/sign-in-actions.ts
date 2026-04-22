@@ -4,6 +4,7 @@ import { signIn } from "@/src/auth";
 
 interface SignInResult {
   error?: string;
+  needsVerification?: boolean;
 }
 
 export async function signInAction(
@@ -18,18 +19,21 @@ export async function signInAction(
   }
 
   if (email && password) {
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-    if (result?.error) {
+      if (result?.error) {
+        return { error: "Invalid email or password" };
+      }
+
+      return {};
+    } catch (error) {
       return { error: "Invalid email or password" };
     }
-
-    // Redirect will happen via the returned result's redirect
-    return {};
   }
 
   return { error: "Invalid sign-in request" };

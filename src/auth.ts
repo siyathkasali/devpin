@@ -30,6 +30,11 @@ const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
+        // Check if email is verified
+        if (!user.emailVerified) {
+          return null;
+        }
+
         const isValid = await bcrypt.compare(
           credentials.password as string,
           user.password
@@ -49,14 +54,14 @@ const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      // For GitHub OAuth, check if user exists but has no linked account
+      // For GitHub OAuth
       if (account?.provider === "github" && user.email) {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
           include: { accounts: true },
         });
 
-        // If user exists but has no GitHub account linked, link it
+        // If user exists but has no GitHub account linked, link it and mark email verified
         if (existingUser && existingUser.accounts.length === 0) {
           await prisma.account.create({
             data: {
@@ -72,6 +77,14 @@ const { handlers, auth, signIn, signOut } = NextAuth({
               id_token: account.id_token,
             },
           });
+
+          // Mark email as verified for OAuth users
+          if (!existingUser.emailVerified) {
+            await prisma.user.update({
+              where: { id: existingUser.id },
+              data: { emailVerified: new Date() },
+            });
+          }
         }
       }
       return true;

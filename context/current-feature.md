@@ -1,15 +1,29 @@
 # Current Feature
 
+Email Verification - Resend Integration
+
 ## Status
 
-_Planning_
+In Progress
 
 ## Goals
 
-- [ ] _To be determined_
+- [ ] Install resend package
+- [ ] Add VerificationToken model to Prisma schema
+- [ ] Create `src/lib/email.ts` service
+- [ ] Create verification API route at `/api/auth/verify-email`
+- [ ] Create `/verify-email/success` page
+- [ ] Update registration API to send verification email
+- [ ] Update auth config to check email verification
+- [ ] Update sign-in page for unverified users
+- [ ] Verify functionality
+
+## Notes
+
+- See `@context/features/email-verification-spec.md` for full specification.
+- Using Resend for transactional emails.
+- User must verify email before signing in.
 
 ## History
 
-- 2026-04-21: Completed Auth Phase 3 - Sign In, Register & Sign Out UI. Added custom /sign-in and /register pages, sidebar user dropdown with avatar and sign out.
-- 2026-04-21: Starting Auth Phase 3 - Sign In, Register & Sign Out UI.
-- 2026-04-20: Completed Auth Phase 2 - Email/Password Provider. Added Credentials provider with bcrypt validation, registration API, and sign-in/registration forms.
+- 2026-04-21: Starting Email Verification feature.

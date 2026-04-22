@@ -19,6 +19,9 @@ export function SignInForm() {
     if (result?.error) {
       setError(result.error);
       setIsLoading(false);
+    } else {
+      // Success - redirect to dashboard
+      window.location.href = "/dashboard";
     }
   }
 
