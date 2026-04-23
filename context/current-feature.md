@@ -1,7 +1,7 @@
 # Item Drawer
 
 ## Status
-In Progress
+Completed
 
 ## Goals
 - [x] Create API route `/api/items/[id]` for fetching full item
@@ -16,4 +16,4 @@ Spec: @context/features/item-drawer-spec.md
 
 ## History
 - 2026-04-22: Completed Items List View feature.
-- 2026-04-22: Started Item Drawer feature.
+- 2026-04-22: Completed Item Drawer feature.
