@@ -45,3 +45,17 @@ export async function getSidebarItemTypes(
     itemCount: countMap.get(t.id) || 0,
   }));
 }
+
+export async function getSystemItemTypes() {
+  return prisma.itemType.findMany({
+    where: { isSystem: true },
+    orderBy: { name: "asc" },
+    select: { id: true, name: true, icon: true, color: true },
+  });
+}
+
+export type ItemTypeOption = {
+  id: string;
+  name: string;
+  icon: string | null;
+};

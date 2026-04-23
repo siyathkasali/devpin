@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { updateItemSchema } from "./items";
+import { createItemSchema, updateItemSchema } from "./items";
 
 describe("updateItemSchema", () => {
   describe("title", () => {
@@ -72,9 +72,9 @@ describe("updateItemSchema", () => {
       expect(result.success).toBe(true);
     });
 
-    it("rejects an invalid URL", () => {
-      const result = updateItemSchema.safeParse({ title: "Valid", url: "not-a-url" });
-      expect(result.success).toBe(false);
+    it("accepts a URL without protocol (gets https:// prepended)", () => {
+      const result = updateItemSchema.safeParse({ title: "Valid", url: "www.reactui.com" });
+      expect(result.success).toBe(true);
     });
   });
 
@@ -129,6 +129,48 @@ describe("updateItemSchema", () => {
         url: null,
         language: "TypeScript",
         tags: ["snippet", "utility"],
+      });
+      expect(result.success).toBe(true);
+    });
+  });
+});
+
+describe("createItemSchema", () => {
+  describe("typeId", () => {
+    it("accepts a non-empty typeId", () => {
+      const result = createItemSchema.safeParse({ title: "Valid", typeId: "abc123" });
+      expect(result.success).toBe(true);
+    });
+
+    it("rejects an empty typeId", () => {
+      const result = createItemSchema.safeParse({ title: "Valid", typeId: "" });
+      expect(result.success).toBe(false);
+    });
+
+    it("rejects undefined typeId", () => {
+      const result = createItemSchema.safeParse({ title: "Valid" });
+      expect(result.success).toBe(false);
+    });
+  });
+
+  describe("complete valid payload", () => {
+    it("accepts a fully populated payload with typeId", () => {
+      const result = createItemSchema.safeParse({
+        title: "My Snippet",
+        description: "A useful snippet",
+        content: "const x = 1;",
+        url: null,
+        language: "TypeScript",
+        tags: ["snippet", "utility"],
+        typeId: "type123",
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it("accepts minimal valid payload", () => {
+      const result = createItemSchema.safeParse({
+        title: "My Item",
+        typeId: "type123",
       });
       expect(result.success).toBe(true);
     });
