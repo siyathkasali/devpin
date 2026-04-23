@@ -20,7 +20,7 @@ export function ItemCard({ item }: { item: DashboardItem }) {
   const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
   return (
-    <div className="flex items-start gap-4 p-4 rounded-lg bg-card/30 hover:bg-card/60 transition-colors border border-border/50">
+    <div className="flex items-start gap-4 p-4 rounded-lg bg-card/30 hover:bg-card/60 transition-colors border border-border/50 cursor-pointer">
       {/* Icon Area */}
       <div className="shrink-0 mt-1">
         <div className="rounded bg-background p-2 border border-border">

@@ -5,7 +5,7 @@ import {
   getRecentItems,
 } from "@/src/lib/db/items";
 import { CollectionCard } from "@/components/dashboard/collection-card";
-import { ItemCard } from "@/components/dashboard/item-card";
+import { ItemsList } from "@/components/dashboard/items-list";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Folder, Star, FileText, Pin } from "lucide-react";
 
@@ -110,22 +110,14 @@ export default async function DashboardPage() {
             <Pin className="w-4 h-4 text-muted-foreground fill-muted-foreground transform rotate-45" />
             <h2>Pinned</h2>
           </div>
-          <div className="flex flex-col space-y-2">
-            {pinnedItems.map((item) => (
-              <ItemCard key={item.id} item={item} />
-            ))}
-          </div>
+          <ItemsList items={pinnedItems} />
         </div>
       )}
 
       {/* Recent Items Section */}
       <div className="flex flex-col gap-4 pt-4">
         <h2 className="text-xl font-semibold tracking-tight">Recent Items</h2>
-        <div className="flex flex-col space-y-2">
-          {recentItems.map((item) => (
-            <ItemCard key={item.id} item={item} />
-          ))}
-        </div>
+        <ItemsList items={recentItems} />
       </div>
     </div>
   );

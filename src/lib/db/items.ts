@@ -177,3 +177,60 @@ export async function getItemsByType(
     return { success: false, error: "Failed to fetch items by type" };
   }
 }
+
+export type ItemWithRelations = Prisma.ItemGetPayload<{
+  include: {
+    type: true;
+    tags: {
+      include: {
+        tag: true;
+      };
+    };
+    collection: true;
+  };
+}>;
+
+export type GetItemByIdResult =
+  | { success: true; data: ItemWithRelations }
+  | { success: false; error: string };
+
+export async function getItemById(
+  userEmail: string,
+  itemId: string,
+): Promise<GetItemByIdResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    const item = await prisma.item.findFirst({
+      where: {
+        id: itemId,
+        userId: user.id,
+      },
+      include: {
+        type: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+        collection: true,
+      },
+    });
+
+    if (!item) {
+      return { success: false, error: "Item not found" };
+    }
+
+    return { success: true, data: item };
+  } catch (error) {
+    console.error("Error fetching item by id:", error);
+    return { success: false, error: "Failed to fetch item" };
+  }
+}

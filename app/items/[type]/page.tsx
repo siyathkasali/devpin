@@ -1,5 +1,5 @@
 import { getItemsByType } from "@/src/lib/db/items";
-import { ItemCard } from "@/components/dashboard/item-card";
+import { ItemsList } from "@/components/dashboard/items-list";
 import { Badge } from "@/components/ui/badge";
 
 interface ItemsByTypePageProps {
@@ -31,17 +31,10 @@ export default async function ItemsByTypePage({ params }: ItemsByTypePageProps) 
 
       {/* Items Grid */}
       {items.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-lg border-l-4 bg-card/30 hover:bg-card/60 transition-colors"
-              style={{ borderLeftColor: item.type.color || "currentColor" }}
-            >
-              <ItemCard item={item} />
-            </div>
-          ))}
-        </div>
+        <ItemsList
+          items={items}
+          gridClassName="grid grid-cols-1 md:grid-cols-2 gap-4"
+        />
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <p className="text-muted-foreground">No {typeName.toLowerCase()} found</p>
