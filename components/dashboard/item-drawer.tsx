@@ -15,7 +15,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Star, Pin, Copy, Pencil, Trash2, Tag, Folder, X, Check } from "lucide-react";
 import { DashboardItem, ItemWithRelations } from "@/src/lib/db/items";
-import { updateItemAction } from "@/src/actions/items";
+import { updateItemAction, deleteItemAction } from "@/src/actions/items";
+import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ItemDrawerProps {
   item: DashboardItem | null;
@@ -32,6 +43,8 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [originalItem, setOriginalItem] = useState<ItemWithRelations | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Edit form state
   const [title, setTitle] = useState("");
@@ -152,6 +165,30 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
     }
   };
 
+  const handleDelete = async () => {
+    const itemToDelete = displayItem;
+    if (!itemToDelete) return;
+
+    setDeleting(true);
+    try {
+      const result = await deleteItemAction(itemToDelete.id);
+
+      if (result.success) {
+        toast.success("Item deleted successfully");
+        setDeleteDialogOpen(false);
+        handleOpenChange(false);
+        router.refresh();
+      } else {
+        toast.error(result.error || "Failed to delete item");
+      }
+    } catch (error) {
+      console.error("Failed to delete item:", error);
+      toast.error("Failed to delete item");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   if (!item) return null;
 
   const displayItem = fullItem || item;
@@ -162,6 +199,7 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
   const showUrl = itemTypeName === "link";
 
   return (
+    <>
     <Sheet open={open} onOpenChange={handleSheetOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-xl overflow-y-auto">
         <SheetHeader>
@@ -262,9 +300,7 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
                 variant="ghost"
                 size="sm"
                 className="gap-1.5 text-destructive hover:text-destructive"
-                onClick={() => {
-                  // TODO: Delete item
-                }}
+                onClick={() => setDeleteDialogOpen(true)}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -423,5 +459,27 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
         )}
       </SheetContent>
     </Sheet>
+
+    <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This will permanently delete "{displayItem.title}". This action cannot be undone.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={deleting}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
+            {deleting ? "Deleting..." : "Delete"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 }

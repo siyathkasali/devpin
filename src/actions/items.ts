@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/src/auth";
-import { createItem, createItemSchema, updateItem, updateItemSchema, type CreateItemData, type UpdateItemData } from "@/src/lib/db/items";
+import { createItem, createItemSchema, deleteItem, updateItem, updateItemSchema, type CreateItemData, type UpdateItemData } from "@/src/lib/db/items";
 import { getSystemItemTypes } from "@/src/lib/db/item-types";
 import { revalidatePath } from "next/cache";
 
@@ -89,5 +89,34 @@ export async function createItemAction(
   } catch (error) {
     console.error("Error in createItemAction:", error);
     return { success: false, error: "Failed to create item" };
+  }
+}
+
+export type DeleteItemActionResult =
+  | { success: true }
+  | { success: false; error: string };
+
+export async function deleteItemAction(
+  itemId: string,
+): Promise<DeleteItemActionResult> {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.email) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    const result = await deleteItem(session.user.email, itemId);
+
+    if (!result.success) {
+      return result;
+    }
+
+    revalidatePath("/");
+
+    return result;
+  } catch (error) {
+    console.error("Error in deleteItemAction:", error);
+    return { success: false, error: "Failed to delete item" };
   }
 }

@@ -471,3 +471,43 @@ export async function createItem(
     return { success: false, error: "Failed to create item" };
   }
 }
+
+export type DeleteItemResult =
+  | { success: true }
+  | { success: false; error: string };
+
+export async function deleteItem(
+  userEmail: string,
+  itemId: string,
+): Promise<DeleteItemResult> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: userEmail },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    const existingItem = await prisma.item.findFirst({
+      where: {
+        id: itemId,
+        userId: user.id,
+      },
+    });
+
+    if (!existingItem) {
+      return { success: false, error: "Item not found" };
+    }
+
+    await prisma.item.delete({
+      where: { id: itemId },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    return { success: false, error: "Failed to delete item" };
+  }
+}
