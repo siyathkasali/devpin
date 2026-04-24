@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
+import { CodeEditor } from "@/components/ui/code-editor";
 import {
   Select,
   SelectContent,
@@ -192,12 +193,10 @@ export function NewItemDialog({ open, onOpenChange }: NewItemDialogProps) {
                   placeholder="Write your content here..."
                 />
               ) : (
-                <Textarea
+                <CodeEditor
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="Content"
-                  rows={6}
-                  className="font-mono text-sm"
+                  onChange={setContent}
+                  language={language}
                 />
               )}
             </div>

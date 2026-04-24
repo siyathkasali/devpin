@@ -1,19 +1,17 @@
-# Item Drawer
+# Code Editor
 
 ## Status
 Completed
 
 ## Goals
-- [x] Create API route `/api/items/[id]` for fetching full item
-- [x] Add getItemById function to lib/db/items.ts
-- [x] Create ItemDrawer client wrapper component
-- [x] Make ItemCard clickable to open drawer
-- [x] Implement action bar (Favorite, Pin, Copy, Edit, Delete)
-- [x] Add skeleton loading state
+- [x] Install @monaco-editor/react package
+- [x] Create CodeEditor component with macOS window dots and copy button
+- [x] Replace Textarea with CodeEditor for snippets and commands
+- [x] Support readonly and edit modes
+- [x] Verify in browser
 
 ## Notes
-Spec: @context/features/item-drawer-spec.md
+Spec: @context/features/code-editor-spec.md
 
 ## History
-- 2026-04-22: Completed Items List View feature.
-- 2026-04-22: Completed Item Drawer feature.
+- 2026-04-24: Completed Monaco Editor integration for snippets and commands.

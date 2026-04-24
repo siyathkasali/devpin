@@ -1,0 +1,287 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - generic [ref=e8]:
+        - generic [ref=e10]: S
+        - generic [ref=e11]: DevStash
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Types
+          - list [ref=e15]:
+            - listitem [ref=e16]:
+              - link "command" [ref=e17] [cursor=pointer]:
+                - /url: /items/command
+                - img [ref=e18]
+                - generic [ref=e20]: command
+              - generic: "5"
+            - listitem [ref=e21]:
+              - link "file PRO" [ref=e22] [cursor=pointer]:
+                - /url: /items/file
+                - img [ref=e23]
+                - generic [ref=e26]: file
+                - generic [ref=e27]:
+                  - img
+                  - text: PRO
+              - generic: "0"
+            - listitem [ref=e28]:
+              - link "image PRO" [ref=e29] [cursor=pointer]:
+                - /url: /items/image
+                - img [ref=e30]
+                - generic [ref=e34]: image
+                - generic [ref=e35]:
+                  - img
+                  - text: PRO
+              - generic: "0"
+            - listitem [ref=e36]:
+              - link "link" [ref=e37] [cursor=pointer]:
+                - /url: /items/link
+                - img [ref=e38]
+                - generic [ref=e41]: link
+              - generic: "6"
+            - listitem [ref=e42]:
+              - link "note" [ref=e43] [cursor=pointer]:
+                - /url: /items/note
+                - img [ref=e44]
+                - generic [ref=e47]: note
+              - generic: "0"
+            - listitem [ref=e48]:
+              - link "prompt" [ref=e49] [cursor=pointer]:
+                - /url: /items/prompt
+                - img [ref=e50]
+                - generic [ref=e53]: prompt
+              - generic: "3"
+            - listitem [ref=e54]:
+              - link "snippet" [ref=e55] [cursor=pointer]:
+                - /url: /items/snippet
+                - img [ref=e56]
+                - generic [ref=e59]: snippet
+              - generic: "5"
+        - generic [ref=e60]:
+          - generic [ref=e61]: Favorites
+          - list [ref=e62]:
+            - listitem [ref=e63]:
+              - link "Design Resources" [ref=e64] [cursor=pointer]:
+                - /url: /collections/cmoa7gtnr000ju9vmndzisqje
+                - generic [ref=e65]:
+                  - img [ref=e66]
+                  - generic [ref=e68]: Design Resources
+                - img [ref=e69]
+            - listitem [ref=e71]:
+              - link "React Patterns" [ref=e72] [cursor=pointer]:
+                - /url: /collections/cmoa7gt020001u9vm7eadchh5
+                - generic [ref=e73]:
+                  - img [ref=e74]
+                  - generic [ref=e76]: React Patterns
+                - img [ref=e77]
+        - generic [ref=e79]:
+          - generic [ref=e80]: Recent Collections
+          - list [ref=e81]:
+            - listitem [ref=e82]:
+              - link "Design Resources" [ref=e83] [cursor=pointer]:
+                - /url: /collections/cmoa7gtnr000ju9vmndzisqje
+                - generic [ref=e85]: Design Resources
+              - generic: "4"
+            - listitem [ref=e86]:
+              - link "Terminal Commands" [ref=e87] [cursor=pointer]:
+                - /url: /collections/cmoa7gti4000eu9vmbmvyp8gp
+                - generic [ref=e89]: Terminal Commands
+              - generic: "4"
+            - listitem [ref=e90]:
+              - link "DevOps" [ref=e91] [cursor=pointer]:
+                - /url: /collections/cmoa7gtcj0009u9vm7hjp7861
+                - generic [ref=e93]: DevOps
+              - generic: "4"
+            - listitem [ref=e94]:
+              - link "AI Workflows" [ref=e95] [cursor=pointer]:
+                - /url: /collections/cmoa7gt6t0005u9vmd6kchlat
+                - generic [ref=e97]: AI Workflows
+              - generic: "3"
+            - listitem [ref=e98]:
+              - link "React Patterns" [ref=e99] [cursor=pointer]:
+                - /url: /collections/cmoa7gt020001u9vm7eadchh5
+                - generic [ref=e101]: React Patterns
+              - generic: "3"
+            - listitem [ref=e102]:
+              - link "View all collections" [ref=e103] [cursor=pointer]:
+                - /url: /collections
+      - button "Demo User demo@devstash.io" [ref=e105] [cursor=pointer]:
+        - generic [ref=e107]:
+          - paragraph [ref=e108]: Demo User
+          - paragraph [ref=e109]: demo@devstash.io
+    - generic [ref=e110]:
+      - banner [ref=e111]:
+        - button "Toggle Sidebar" [ref=e112]:
+          - img
+          - generic [ref=e113]: Toggle Sidebar
+        - generic [ref=e114]:
+          - generic:
+            - img
+          - textbox "Search items..." [ref=e115]
+          - generic:
+            - generic:
+              - img
+              - text: K
+        - generic [ref=e116]:
+          - button "New Collection" [ref=e117]:
+            - img
+            - text: New Collection
+          - button "New Item" [ref=e118]:
+            - img
+            - text: New Item
+      - main [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - heading "Dashboard" [level=1] [ref=e122]
+            - paragraph [ref=e123]: Your developer knowledge hub
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - generic [ref=e126]:
+                - generic [ref=e127]: Total Items
+                - img [ref=e128]
+              - generic [ref=e132]: "19"
+            - generic [ref=e133]:
+              - generic [ref=e134]:
+                - generic [ref=e135]: Collections
+                - img [ref=e136]
+              - generic [ref=e139]: "5"
+            - generic [ref=e140]:
+              - generic [ref=e141]:
+                - generic [ref=e142]: Favorite Items
+                - img [ref=e143]
+              - generic [ref=e146]: "0"
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - generic [ref=e149]: Favorite Collections
+                - img [ref=e150]
+              - generic [ref=e153]: "2"
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - heading "Collections" [level=2] [ref=e156]
+              - button "View all" [ref=e157]
+            - generic [ref=e158]:
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - generic [ref=e161]:
+                    - generic [ref=e162]:
+                      - text: Design Resources
+                      - img [ref=e163]
+                    - generic [ref=e165]: 4 items
+                  - button [ref=e166]:
+                    - img [ref=e167]
+                - generic [ref=e171]:
+                  - paragraph [ref=e172]: UI/UX resources and references
+                  - img [ref=e174]
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - generic [ref=e179]:
+                    - generic [ref=e180]: Terminal Commands
+                    - generic [ref=e181]: 4 items
+                  - button [ref=e182]:
+                    - img [ref=e183]
+                - generic [ref=e187]:
+                  - paragraph [ref=e188]: Useful shell commands for everyday development
+                  - img [ref=e190]
+              - generic [ref=e192]:
+                - generic [ref=e193]:
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: DevOps
+                    - generic [ref=e196]: 4 items
+                  - button [ref=e197]:
+                    - img [ref=e198]
+                - generic [ref=e202]:
+                  - paragraph [ref=e203]: Infrastructure and deployment resources
+                  - generic [ref=e204]:
+                    - img [ref=e205]
+                    - img [ref=e208]
+                    - img [ref=e210]
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - generic [ref=e215]:
+                    - generic [ref=e216]: AI Workflows
+                    - generic [ref=e217]: 3 items
+                  - button [ref=e218]:
+                    - img [ref=e219]
+                - generic [ref=e223]:
+                  - paragraph [ref=e224]: AI prompts and workflow automations
+                  - img [ref=e226]
+              - generic [ref=e229]:
+                - generic [ref=e230]:
+                  - generic [ref=e231]:
+                    - generic [ref=e232]:
+                      - text: React Patterns
+                      - img [ref=e233]
+                    - generic [ref=e235]: 3 items
+                  - button [ref=e236]:
+                    - img [ref=e237]
+                - generic [ref=e241]:
+                  - paragraph [ref=e242]: Reusable React patterns and hooks
+                  - img [ref=e244]
+          - generic [ref=e247]:
+            - heading "Recent Items" [level=2] [ref=e248]
+            - generic [ref=e249]:
+              - generic [ref=e251] [cursor=pointer]:
+                - img [ref=e254]
+                - generic [ref=e257]:
+                  - generic [ref=e259]: use effect promt
+                  - paragraph [ref=e260]: use effect promt desc
+                  - generic [ref=e261]:
+                    - generic [ref=e262]: react
+                    - generic [ref=e263]: node
+                    - generic [ref=e264]: typescript
+                - generic [ref=e265]: Apr 23
+              - generic [ref=e267] [cursor=pointer]:
+                - img [ref=e270]
+                - generic [ref=e273]:
+                  - generic [ref=e275]: Lucide Icons
+                  - paragraph [ref=e276]: Open source icon library
+                - generic [ref=e277]: Apr 22
+              - generic [ref=e279] [cursor=pointer]:
+                - img [ref=e282]
+                - generic [ref=e285]:
+                  - generic [ref=e287]: Tailwind CSS Docs
+                  - paragraph [ref=e288]: Utility-first CSS framework
+                - generic [ref=e289]: Apr 22
+              - generic [ref=e291] [cursor=pointer]:
+                - img [ref=e294]
+                - generic [ref=e297]:
+                  - generic [ref=e299]: Shadcn UI
+                  - paragraph [ref=e300]: Accessible and customizable components
+                - generic [ref=e301]: Apr 22
+              - generic [ref=e303] [cursor=pointer]:
+                - img [ref=e306]
+                - generic [ref=e309]:
+                  - generic [ref=e311]: Relume Library
+                  - paragraph [ref=e312]: Webflow design system
+                - generic [ref=e313]: Apr 22
+              - generic [ref=e315] [cursor=pointer]:
+                - img [ref=e318]
+                - generic [ref=e320]:
+                  - generic [ref=e322]: Docker Commands
+                  - paragraph [ref=e323]: docker ps, cleanup, prune
+                - generic [ref=e324]: Apr 22
+              - generic [ref=e326] [cursor=pointer]:
+                - img [ref=e329]
+                - generic [ref=e331]:
+                  - generic [ref=e333]: Package Manager Utilities
+                  - paragraph [ref=e334]: npm, pnpm, yarn commands
+                - generic [ref=e335]: Apr 22
+              - generic [ref=e337] [cursor=pointer]:
+                - img [ref=e340]
+                - generic [ref=e342]:
+                  - generic [ref=e344]: Git Operations
+                  - paragraph [ref=e345]: git rebase, squash, stash
+                - generic [ref=e346]: Apr 22
+              - generic [ref=e348] [cursor=pointer]:
+                - img [ref=e351]
+                - generic [ref=e353]:
+                  - generic [ref=e355]: Process Management
+                  - paragraph [ref=e356]: htop, kill, ps aux
+                - generic [ref=e357]: Apr 22
+              - generic [ref=e359] [cursor=pointer]:
+                - img [ref=e362]
+                - generic [ref=e365]:
+                  - generic [ref=e367]: Vercel Guide
+                  - paragraph [ref=e368]: Vercel deployment guides
+                - generic [ref=e369]: Apr 22
+  - region "Notifications alt+T"
+  - alert [ref=e370]

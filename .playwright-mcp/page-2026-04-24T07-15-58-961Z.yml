@@ -1,0 +1,389 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: S
+                - generic: DevStash
+            - generic:
+              - generic:
+                - generic: Types
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /items/command
+                      - img
+                      - generic: command
+                    - generic: "5"
+                  - listitem:
+                    - link:
+                      - /url: /items/file
+                      - img
+                      - generic: file
+                      - generic:
+                        - img
+                        - text: PRO
+                    - generic: "0"
+                  - listitem:
+                    - link:
+                      - /url: /items/image
+                      - img
+                      - generic: image
+                      - generic:
+                        - img
+                        - text: PRO
+                    - generic: "0"
+                  - listitem:
+                    - link:
+                      - /url: /items/link
+                      - img
+                      - generic: link
+                    - generic: "6"
+                  - listitem:
+                    - link:
+                      - /url: /items/note
+                      - img
+                      - generic: note
+                    - generic: "0"
+                  - listitem:
+                    - link:
+                      - /url: /items/prompt
+                      - img
+                      - generic: prompt
+                    - generic: "3"
+                  - listitem:
+                    - link:
+                      - /url: /items/snippet
+                      - img
+                      - generic: snippet
+                    - generic: "5"
+              - generic:
+                - generic: Favorites
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gtnr000ju9vmndzisqje
+                      - generic:
+                        - img
+                        - generic: Design Resources
+                      - img
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gt020001u9vm7eadchh5
+                      - generic:
+                        - img
+                        - generic: React Patterns
+                      - img
+              - generic:
+                - generic: Recent Collections
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gtnr000ju9vmndzisqje
+                      - generic: Design Resources
+                    - generic: "4"
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gti4000eu9vmbmvyp8gp
+                      - generic: Terminal Commands
+                    - generic: "4"
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gtcj0009u9vm7hjp7861
+                      - generic: DevOps
+                    - generic: "4"
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gt6t0005u9vmd6kchlat
+                      - generic: AI Workflows
+                    - generic: "3"
+                  - listitem:
+                    - link:
+                      - /url: /collections/cmoa7gt020001u9vm7eadchh5
+                      - generic: React Patterns
+                    - generic: "3"
+                  - listitem:
+                    - link:
+                      - /url: /collections
+                      - text: View all collections
+            - generic:
+              - button:
+                - generic:
+                  - generic: DU
+                - generic:
+                  - paragraph: Demo User
+                  - paragraph: demo@devstash.io
+      - generic:
+        - banner:
+          - button:
+            - img
+            - generic: Toggle Sidebar
+          - generic:
+            - generic:
+              - img
+            - textbox:
+              - /placeholder: Search items...
+            - generic:
+              - generic:
+                - img
+                - text: K
+          - generic:
+            - button:
+              - img
+              - text: New Collection
+            - button:
+              - img
+              - text: New Item
+        - main:
+          - generic:
+            - generic:
+              - heading [level=1]: Dashboard
+              - paragraph: Your developer knowledge hub
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Total Items
+                  - img
+                - generic:
+                  - generic: "19"
+              - generic:
+                - generic:
+                  - generic: Collections
+                  - img
+                - generic:
+                  - generic: "5"
+              - generic:
+                - generic:
+                  - generic: Favorite Items
+                  - img
+                - generic:
+                  - generic: "0"
+              - generic:
+                - generic:
+                  - generic: Favorite Collections
+                  - img
+                - generic:
+                  - generic: "2"
+            - generic:
+              - generic:
+                - heading [level=2]: Collections
+                - button: View all
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - text: Design Resources
+                        - img
+                      - generic: 4 items
+                    - button:
+                      - img
+                  - generic:
+                    - paragraph: UI/UX resources and references
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Terminal Commands
+                      - generic: 4 items
+                    - button:
+                      - img
+                  - generic:
+                    - paragraph: Useful shell commands for everyday development
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: DevOps
+                      - generic: 4 items
+                    - button:
+                      - img
+                  - generic:
+                    - paragraph: Infrastructure and deployment resources
+                    - generic:
+                      - img
+                      - img
+                      - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: AI Workflows
+                      - generic: 3 items
+                    - button:
+                      - img
+                  - generic:
+                    - paragraph: AI prompts and workflow automations
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - text: React Patterns
+                        - img
+                      - generic: 3 items
+                    - button:
+                      - img
+                  - generic:
+                    - paragraph: Reusable React patterns and hooks
+                    - generic:
+                      - img
+            - generic:
+              - heading [level=2]: Recent Items
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: use effect promt
+                      - paragraph: use effect promt desc
+                      - generic:
+                        - generic: react
+                        - generic: node
+                        - generic: typescript
+                    - generic: Apr 23
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Lucide Icons
+                      - paragraph: Open source icon library
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Tailwind CSS Docs
+                      - paragraph: Utility-first CSS framework
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Shadcn UI
+                      - paragraph: Accessible and customizable components
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Relume Library
+                      - paragraph: Webflow design system
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Docker Commands
+                      - paragraph: docker ps, cleanup, prune
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Package Manager Utilities
+                      - paragraph: npm, pnpm, yarn commands
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Git Operations
+                      - paragraph: git rebase, squash, stash
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Process Management
+                      - paragraph: htop, kill, ps aux
+                    - generic: Apr 22
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - generic: Vercel Guide
+                      - paragraph: Vercel deployment guides
+                    - generic: Apr 22
+  - region "Notifications alt+T"
+  - alert
+  - dialog "Create New Item" [ref=e374]:
+    - heading "Create New Item" [level=2] [ref=e376]
+    - generic [ref=e377]:
+      - generic [ref=e378]:
+        - generic [ref=e379]: Type
+        - combobox [ref=e380]:
+          - generic: command
+          - img
+      - generic [ref=e381]:
+        - generic [ref=e382]: Title
+        - textbox "Item title" [active] [ref=e383]
+      - generic [ref=e384]:
+        - generic [ref=e385]: Description
+        - textbox "Optional description" [ref=e386]
+      - generic [ref=e387]:
+        - generic [ref=e388]: Tags
+        - textbox "Comma-separated tags" [ref=e389]
+      - generic [ref=e390]:
+        - generic [ref=e391]: Content
+        - generic [ref=e392]:
+          - generic [ref=e393]:
+            - generic [ref=e395]:
+              - img [ref=e396]
+              - img [ref=e398]
+              - img [ref=e400]
+            - button "Copy" [ref=e402]:
+              - img
+              - text: Copy
+          - code [ref=e406]:
+            - generic [ref=e407]:
+              - textbox "Editor content" [ref=e408]
+              - textbox [ref=e409]
+      - generic [ref=e418]:
+        - generic [ref=e419]: Language
+        - textbox "e.g., TypeScript, Python" [ref=e420]
+    - generic [ref=e421]:
+      - button "Cancel" [ref=e422]
+      - button "Create" [disabled]
+    - button "Close" [ref=e423]:
+      - img
+      - generic [ref=e424]: Close
+  - generic:
+    - alert
+    - alert

@@ -6,12 +6,16 @@ interface ItemsByTypePageProps {
   params: Promise<{ type: string }>;
 }
 
-export default async function ItemsByTypePage({ params }: ItemsByTypePageProps) {
+export default async function ItemsByTypePage({
+  params,
+}: ItemsByTypePageProps) {
   const { type } = await params;
   const userEmail = "demo@devstash.io";
 
   const result = await getItemsByType(userEmail, type);
   const items = result.success ? result.data : [];
+
+  console.log({ items });
 
   const typeName = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
 
@@ -37,7 +41,9 @@ export default async function ItemsByTypePage({ params }: ItemsByTypePageProps) 
         />
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <p className="text-muted-foreground">No {typeName.toLowerCase()} found</p>
+          <p className="text-muted-foreground">
+            No {typeName.toLowerCase()} found
+          </p>
         </div>
       )}
     </div>

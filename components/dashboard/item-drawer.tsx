@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { MarkdownEditor } from "@/components/ui/markdown-editor";
+import { CodeEditor } from "@/components/ui/code-editor";
 import { Star, Pin, Copy, Pencil, Trash2, Tag, Folder, X, Check } from "lucide-react";
 import { DashboardItem, ItemWithRelations } from "@/src/lib/db/items";
 import { updateItemAction, deleteItemAction } from "@/src/actions/items";
@@ -359,12 +360,10 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
                       placeholder="Write your content here..."
                     />
                   ) : (
-                    <Textarea
+                    <CodeEditor
                       value={content}
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-                      placeholder="Content"
-                      rows={6}
-                      className="font-mono text-sm"
+                      onChange={setContent}
+                      language={language}
                     />
                   )}
                 </div>
@@ -453,9 +452,11 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
                       readonly
                     />
                   ) : (
-                    <pre className="text-xs bg-muted p-3 rounded-md overflow-x-auto">
-                      {displayItem.content}
-                    </pre>
+                    <CodeEditor
+                      value={displayItem.content}
+                      readonly
+                      language={displayItem.language || "plaintext"}
+                    />
                   )}
                 </div>
               )}
