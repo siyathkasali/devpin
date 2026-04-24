@@ -1,8 +1,10 @@
 "use server";
 
 import { auth } from "@/src/auth";
+import { prisma } from "@/src/lib/db";
 import { createItem, createItemSchema, deleteItem, updateItem, updateItemSchema, type CreateItemData, type UpdateItemData } from "@/src/lib/db/items";
 import { getSystemItemTypes } from "@/src/lib/db/item-types";
+import { checkItemLimit } from "@/src/lib/usage-limits";
 import { revalidatePath } from "next/cache";
 
 export async function getItemTypesAction() {
@@ -69,6 +71,22 @@ export async function createItemAction(
 
     if (!session?.user?.email) {
       return { success: false, error: "Unauthorized" };
+    }
+
+    // Get user ID from database
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    // Check item limit for free users
+    const limitCheck = await checkItemLimit(user.id);
+    if (!limitCheck.allowed) {
+      return { success: false, error: `Free tier limit reached (${limitCheck.current}/${limitCheck.limit} items). Upgrade to Pro for unlimited.` };
     }
 
     const validationResult = createItemSchema.safeParse(data);
