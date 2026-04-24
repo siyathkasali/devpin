@@ -1,17 +1,20 @@
-# Code Editor
+# Homepage Mockup
 
 ## Status
 Completed
 
 ## Goals
-- [x] Install @monaco-editor/react package
-- [x] Create CodeEditor component with macOS window dots and copy button
-- [x] Replace Textarea with CodeEditor for snippets and commands
-- [x] Support readonly and edit modes
-- [x] Verify in browser
+- [x] Create prototypes/homepage/index.html
+- [x] Create prototypes/homepage/styles.css
+- [x] Create prototypes/homepage/script.js
+- [x] Hero section with chaos-to-order concept
+- [x] Animated floating icons with mouse repulsion
+- [x] Features, AI, Pricing, CTA, Footer sections
+- [x] Scroll animations and responsive design
 
 ## Notes
-Spec: @context/features/code-editor-spec.md
+Output: prototypes/homepage/
+Spec: @context/features/homepage-mockup-spec.md
 
 ## History
-- 2026-04-24: Completed Monaco Editor integration for snippets and commands.
+- 2026-04-24: Completed Homepage Mockup with chaos-to-order hero animation.
