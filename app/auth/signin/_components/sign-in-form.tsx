@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signInAction } from "./sign-in-actions";
 
 interface SignInFormProps {
@@ -8,6 +9,7 @@ interface SignInFormProps {
 }
 
 export function SignInForm({ callbackUrl }: SignInFormProps) {
+  const router = useRouter();
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -62,6 +64,9 @@ export function SignInForm({ callbackUrl }: SignInFormProps) {
       const result = await signInAction(formData.email, formData.password, callbackUrl);
       if (result?.error) {
         setError(result.error);
+      } else {
+        // Redirect on success
+        window.location.href = callbackUrl;
       }
     }
   }
