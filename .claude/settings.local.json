@@ -12,7 +12,13 @@
       "Bash(npx tsc *)",
       "Bash(git checkout *)",
       "Bash(git merge *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_evaluate",
+      "Bash(node -e ' *)",
+      "mcp__playwright__browser_fill_form",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

@@ -11,4 +11,6 @@
    - Write any additional notes/context under ## Notes
    - Set Status to "Not Started"
 
-3. Confirm spec loaded and show the feature summary
+3. **Ask before implementing** - Always ask the user if they want to proceed with implementation before making any changes. Never auto-implement.
+
+4. Confirm spec loaded and show the feature summary
