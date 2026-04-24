@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import {
   Select,
   SelectContent,
@@ -184,13 +185,21 @@ export function NewItemDialog({ open, onOpenChange }: NewItemDialogProps) {
           {showContent && (
             <div>
               <label className="text-sm font-medium block mb-2">Content</label>
-              <Textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Content"
-                rows={6}
-                className="font-mono text-sm"
-              />
+              {selectedTypeName === "note" || selectedTypeName === "prompt" ? (
+                <MarkdownEditor
+                  value={content}
+                  onChange={setContent}
+                  placeholder="Write your content here..."
+                />
+              ) : (
+                <Textarea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="Content"
+                  rows={6}
+                  className="font-mono text-sm"
+                />
+              )}
             </div>
           )}
 

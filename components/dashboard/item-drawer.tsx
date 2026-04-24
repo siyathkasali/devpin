@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { MarkdownEditor } from "@/components/ui/markdown-editor";
 import { Star, Pin, Copy, Pencil, Trash2, Tag, Folder, X, Check } from "lucide-react";
 import { DashboardItem, ItemWithRelations } from "@/src/lib/db/items";
 import { updateItemAction, deleteItemAction } from "@/src/actions/items";
@@ -351,13 +352,21 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
                   <label className="text-sm font-medium text-muted-foreground block mb-1">
                     Content
                   </label>
-                  <Textarea
-                    value={content}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-                    placeholder="Content"
-                    rows={6}
-                    className="font-mono text-sm"
-                  />
+                  {itemTypeName === "note" || itemTypeName === "prompt" ? (
+                    <MarkdownEditor
+                      value={content}
+                      onChange={setContent}
+                      placeholder="Write your content here..."
+                    />
+                  ) : (
+                    <Textarea
+                      value={content}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+                      placeholder="Content"
+                      rows={6}
+                      className="font-mono text-sm"
+                    />
+                  )}
                 </div>
               )}
 
@@ -438,9 +447,16 @@ export function ItemDrawer({ item, open, onOpenChange }: ItemDrawerProps) {
               {displayItem.content && (
                 <div className="mt-4">
                   <h4 className="text-sm font-medium mb-2">Content</h4>
-                  <pre className="text-xs bg-muted p-3 rounded-md overflow-x-auto">
-                    {displayItem.content}
-                  </pre>
+                  {itemTypeName === "note" || itemTypeName === "prompt" ? (
+                    <MarkdownEditor
+                      value={displayItem.content}
+                      readonly
+                    />
+                  ) : (
+                    <pre className="text-xs bg-muted p-3 rounded-md overflow-x-auto">
+                      {displayItem.content}
+                    </pre>
+                  )}
                 </div>
               )}
             </>
