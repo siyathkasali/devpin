@@ -19,6 +19,8 @@ export async function GET() {
         image: true,
         password: true,
         createdAt: true,
+        isPro: true,
+        stripeCustomerId: true,
         _count: {
           select: {
             items: true,
@@ -84,6 +86,8 @@ export async function GET() {
       email: user.email,
       image: user.image,
       createdAt: user.createdAt,
+      isPro: user.isPro,
+      stripeCustomerId: user.stripeCustomerId,
       stats: {
         items: user._count.items,
         collections: user._count.collections,
@@ -92,6 +96,10 @@ export async function GET() {
       authMethods: {
         hasPassword,
         hasGitHub,
+      },
+      priceIds: {
+        monthly: process.env.STRIPE_PRICE_ID_MONTHLY,
+        yearly: process.env.STRIPE_PRICE_ID_YEARLY,
       },
     });
   } catch (error) {

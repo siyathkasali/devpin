@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { BillingSection } from "./billing-section";
 import {
   User,
   Mail,
@@ -27,6 +28,8 @@ interface ProfileData {
   email: string;
   image: string | null;
   createdAt: string;
+  isPro: boolean;
+  stripeCustomerId: string | null;
   stats: {
     items: number;
     collections: number;
@@ -41,6 +44,10 @@ interface ProfileData {
   authMethods: {
     hasPassword: boolean;
     hasGitHub: boolean;
+  };
+  priceIds: {
+    monthly: string;
+    yearly: string;
   };
 }
 
@@ -258,6 +265,16 @@ export function ProfilePage() {
           </div>
         )}
       </div>
+
+      {/* Billing */}
+      {profile.priceIds?.monthly && profile.priceIds?.yearly && (
+        <BillingSection
+          isPro={profile.isPro}
+          stripeCustomerId={profile.stripeCustomerId}
+          monthlyPriceId={profile.priceIds.monthly}
+          yearlyPriceId={profile.priceIds.yearly}
+        />
+      )}
 
       {/* Change Password */}
       {profile.authMethods.hasPassword && (
